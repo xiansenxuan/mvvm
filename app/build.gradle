@@ -1,0 +1,57 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    compileSdkVersion rootProject.ext.android['compileSdkVersion']
+    buildToolsVersion rootProject.ext.android['buildToolsVersion']
+
+    defaultConfig {
+        applicationId rootProject.ext.android['applicationId']
+        minSdkVersion rootProject.ext.android['minSdkVersion']
+        targetSdkVersion rootProject.ext.android['targetSdkVersion']
+        versionCode rootProject.ext.android['versionCode']
+        versionName rootProject.ext.android['versionName']
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+    }
+
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    annotationProcessor  rootProject.ext.dependencies['arouter-compiler']
+
+    api project(":lib_base")
+    api project(":lib_res")
+    /*api project(":module_home")
+    api project(":module_msg")*/
+
+    if (isNeedHomeModule.toBoolean()) {
+        api project(':module_home')
+    }
+    if (isNeedMsgModule.toBoolean()) {
+        api project(':module_msg')
+    }
+}
