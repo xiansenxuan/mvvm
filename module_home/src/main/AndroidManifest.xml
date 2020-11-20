@@ -19,6 +19,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".activity.ResultActivity" tools:ignore="WrongManifestParent"/>
+
+        <activity android:name=".activity.ResultOtherActivity" tools:ignore="WrongManifestParent"/>
     </application>
 
 </manifest>

@@ -22,8 +22,10 @@ public class RouteUtils {
     /**
      * home
      */
-    public static void startHome() {
-        ARouter.getInstance().build(RouteUrl.activity_home).navigation();
+    public static void startHome(String str) {
+        ARouter.getInstance().build(RouteUrl.activity_home).
+                withString("str",str).
+                navigation();
     }
 
     /**

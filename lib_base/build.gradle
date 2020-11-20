@@ -36,7 +36,10 @@ android {
     dataBinding {
         enabled = true
     }
+
 }
+
+
 
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
@@ -49,6 +52,9 @@ dependencies {
     api rootProject.ext.dependencies['material']
     api rootProject.ext.dependencies['constraintlayout']
     api rootProject.ext.dependencies['recyclerview']
+
+    api rootProject.ext.dependencies['activity']
+    api rootProject.ext.dependencies['fragment']
 
     api rootProject.ext.dependencies['arouter']
 }

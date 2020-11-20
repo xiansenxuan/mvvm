@@ -39,7 +39,8 @@ public class MsgActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MsgActivity.this,"点击Msg",Toast.LENGTH_SHORT).show();
-                RouteUtils.startHome();
+
+                RouteUtils.startHome("测试参数传递");
             }
         });
 
