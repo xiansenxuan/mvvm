@@ -15,6 +15,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.demo.lib_base.Constant;
 import com.demo.lib_base.app.MyApplication;
+import com.demo.lib_base.dialog.CircleLoadingView;
+import com.demo.lib_base.inter.SystemDefaultConfig;
 import com.demo.lib_base.utils.SoftInputUtils;
 import com.demo.lib_base.utils.StatusBarUtil;
 
@@ -28,6 +30,17 @@ public abstract class BaseActivity extends DataBindingActivity implements IBaseA
     private ViewModelProvider mActivityProvider;
     private ViewModelProvider mApplicationProvider;
 
+    protected CircleLoadingView loadingView;
+
+    //是否第一次进入布局
+    private boolean isFirstEnterPage = true;
+    //是否可见
+    private boolean isResume = false;
+    //是否是重新连接 才需要执行网络切换操作
+    private boolean isReconnection = false;
+    //是否第一次调用 onSupportVisible
+    private boolean isOnSupportVisible = true;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +48,11 @@ public abstract class BaseActivity extends DataBindingActivity implements IBaseA
         Log.i(Constant.LIFE_TAG, "onCreate   " + this);
 
         initView(savedInstanceState);
+
+        //初始化进度条
+        loadingView = new CircleLoadingView(this);
+
+        setRxListener();
     }
 
     @Override
@@ -52,6 +70,31 @@ public abstract class BaseActivity extends DataBindingActivity implements IBaseA
         super.onResume();
 
         Log.i(Constant.LIFE_TAG, "onResume   " + this);
+
+        isResume = true;
+
+        onSupportVisible();
+
+        if (isOnSupportVisible) {
+            onFirstSupportVisible();
+        }
+        isOnSupportVisible = false;
+    }
+
+    /**
+     * 每次onResume都会调用
+     */
+    @Override
+    public void onSupportVisible() {
+        Log.d(SystemDefaultConfig.LIFE_TAG, "onSupportVisible:   " + this);
+    }
+
+    /**
+     * 首次onResume
+     */
+    public void onFirstSupportVisible() {
+        Log.d(SystemDefaultConfig.LIFE_TAG, "onFirstSupportVisible:   " + this);
+
     }
 
     @Override

@@ -111,4 +111,8 @@
     <!--饼图进度条-->
     <color name="doing_color">#4FCCFF</color>
     <!--饼图进度条-->
+
+
+    <!--提示红点颜色-->
+    <color name="dot_ret">#FF5656</color>
 </resources>
