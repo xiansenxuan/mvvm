@@ -35,4 +35,7 @@ public class RouteUtils {
         ARouter.getInstance().build(RouteUrl.activity_msg).navigation();
     }
 
+    public static void startLogin() {
+
+    }
 }

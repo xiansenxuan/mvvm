@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="colorAccent">@color/base_blue</color>
+    <color name="colorPrimary">#056CD0</color>
+
+    <color name="colorPrimaryDark">#025BC0</color>
+
+
+    <!--图片编辑相关-->
+    <color name="tool_bg">#151414</color><!--图片编辑页背景-->
+    <color name="blue_color_picker">#0066FF</color>
+    <color name="brown_color_picker">#AF593E</color>
+    <color name="green_color_picker">#01A368</color>
+    <color name="orange_color_picker">#FF861F</color>
+    <color name="red_color_picker">#ED0A3F</color>
+    <color name="red_orange_color_picker">#FF3F34</color>
+    <color name="sky_blue_color_picker">#76D7EA</color>
+    <color name="violet_color_picker">#8359A3</color>
+    <color name="yellow_color_picker">#FBE870</color>
+    <color name="yellow_green_color_picker">#C5E17A</color>
+    <!--图片编辑相关-->
+
+    <color name="app_bg">#f5f5f5</color> <!--应用整体背景色-->
+    <color name="transparency">#00000000</color><!--透明-->
+    <color name="transparent_hint">#80000000</color><!--透明-->
+
+    <color name="blur_white_bg">#80ffffff</color><!--模糊白色背景色-->
+
+    <color name="window_background">#FFFFFF</color> <!-- 应用背景色 -->
+    <color name="base_white">#FFFFFF</color> <!-- 全局白色 -->
+    <color name="base_blue">#3A8DFF</color> <!-- 全局蓝色 -->
+    <color name="base_blue_light">#EAF3FF</color> <!-- 全局蓝色 -->
+    <color name="base_black">#000000</color> <!-- 全局黑色 -->
+    <color name="base_gray">#F5F5F5</color> <!-- 全局灰色 -->
+    <color name="base_yellow">#FFEBC5</color> <!-- 全局黄色 -->
+    <color name="btn_yellow">#FF8057</color> <!-- 全局黄色 -->
+    <color name="base_blues">#FF248BFE</color>
+
+    <color name="border_gray">#CFCFCF</color><!--边框灰色-->
+
+
+    <color name="btn_gray">#D3D3D3</color> <!-- 按钮灰色 -->
+    <color name="btn_gray_press">#80D3D3D3</color> <!-- 按下灰色 -->
+
+    <color name="base_blue_press">#805bb2f9</color> <!-- 按下蓝色 -->
+
+    <color name="tab_line_blue">#248bfe</color> <!-- tab下划线 -->
+
+
+    <color name="bg_dark_blue">#4091FF</color> <!-- 深蓝色 -->
+    <color name="bg_dark_green">#42dc87</color> <!-- 深绿色 -->
+    <color name="colors_green">#06C1BC</color> <!-- 深绿色 -->
+
+    <color name="dot_red">#FF5630</color><!--消息提醒背景色-->
+
+
+    <color name="light_red">#D13838</color>
+    <color name="light_blue">#3E8CF6</color>
+
+
+    <color name="color_violet">#825BFF</color> <!--Toolbar-->
+
+    <color name="shadow_bg">#2E000000</color> <!--半透明阴影-->
+    <color name="shadow_bg_60">#99000000</color> <!--60% 透明-->
+
+    <color name="shadow_bg_70">#B3000000</color> <!--70% 透明-->
+
+    <color name="default_grayness_color">#c9c9c9</color><!--首页变灰文本-->
+    <color name="default_text_color">#222222</color> <!-- 默认字体颜色 -->
+    <color name="default_text_color_gray">#BDBFC5</color> <!--语音转文字提示语 -->
+    <color name="default_text_color_light">#666666</color> <!-- 默认浅色字体颜色 -->
+    <color name="default_text_color_light_super">#AAAAAA</color> <!-- 默认超浅色字体颜色 -->
+    <color name="default_text_color_secondary_light">#656565</color> <!-- 默认微浅色字体颜色 -->
+    <color name="text_color_yellow_light">#B28A40</color> <!-- 默认浅黄色字体颜色 -->
+
+    <color name="line_color">#f5f5f5</color> <!--默认分割线颜色-->
+    <color name="dark_line_color">#d8d8d8</color> <!--深度分割线颜色-->
+    <color name="quality_measure_line_color">#AAAAAA</color> <!--质量实测实量表格线-->
+    <color name="stroke_gray_color">#BDBFC5</color> <!--灰色边框-->
+    <color name="stroke_white_color">#ffffff</color> <!--白色边框-->
+
+    <color name="search_border_color">#cecece</color> <!--搜索框颜色-->
+    <color name="bg_search_solid">#EDF0F5</color> <!-- 搜索框背景色 -->
+    <color name="search_text">#AAAAAA</color> <!-- 搜索文字颜色 -->
+
+    <color name="orange_normal">#fd7322</color>
+
+    <!--亮色-->
+    <color name="holo_red_light">@android:color/holo_red_light</color>
+
+    <!--dialog相关-->
+    <color name="dialog_title_color">#1a1a1a</color> <!--dialog标题字体色-->
+    <color name="dialog_btn_color">#333333</color> <!--dialog按钮字体色-->
+    <color name="msg_color">#575757</color>
+    <color name="btn_press_color">#f5f5f5</color>
+
+    <color name="dialog_bg">@color/base_white</color>
+    <!--dialog相关-->
+
+    <!--checkbox-->
+    <color name="colorControlNormal">#cccccc</color>
+    <color name="colorControlActivated">#59ACF9</color>
+    <!--checkbox-->
+
+    <!--圆弧进度条-->
+    <color name="alpha_color">#40FFFFFF</color>
+    <color name="alpha_color_dark">#E6F5FF</color>
+    <color name="in_color">#3A8DFF</color>
+    <color name="middle_color">#FFB05E</color>
+    <!--圆弧进度条-->
+    <!--饼图进度条-->
+    <color name="doing_color">#4FCCFF</color>
+    <!--饼图进度条-->
+</resources>

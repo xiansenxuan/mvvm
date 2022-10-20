@@ -1,3 +1,4 @@
+include ':lib_entity'
 include ':lib_res'
 include ':module_msg'
 include ':module_home'

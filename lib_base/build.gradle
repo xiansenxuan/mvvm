@@ -2,6 +2,8 @@ plugins {
     id 'com.android.library'
 }
 
+apply plugin: 'io.objectbox' // after applying Android plugin
+
 android {
     compileSdkVersion rootProject.ext.android['compileSdkVersion']
     buildToolsVersion rootProject.ext.android['buildToolsVersion']
@@ -33,8 +35,8 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding  = true
     }
 
 }
@@ -43,6 +45,8 @@ android {
 
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
+
+    api project(':lib_entity')
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
@@ -56,5 +60,43 @@ dependencies {
     api rootProject.ext.dependencies['activity']
     api rootProject.ext.dependencies['fragment']
 
+    api rootProject.ext.dependencies['viewmodel']
+
+    api rootProject.ext.dependencies['navigation-fragment']
+    api rootProject.ext.dependencies['navigation-ui']
+
+    api rootProject.ext.dependencies['room-runtime']
+    api rootProject.ext.dependencies['room-common']
+    api rootProject.ext.dependencies['room-compiler']
+
     api rootProject.ext.dependencies['arouter']
+
+    api rootProject.ext.dependencies['xLog']
+
+    //api rootProject.ext.dependencies['glide']
+    //api rootProject.ext.dependencies['glide:compiler']
+
+    api rootProject.ext.dependencies['multidex']
+
+    api rootProject.ext.dependencies['time']
+
+    api rootProject.ext.dependencies['rxjava']
+    api rootProject.ext.dependencies['rxandroid']
+
+    api rootProject.ext.dependencies['retrofit']
+    api rootProject.ext.dependencies['adapter-rxjava2']
+    api rootProject.ext.dependencies['converter-gson']
+    api rootProject.ext.dependencies['converter-scalars']
+
+    api rootProject.ext.dependencies['rxlifecycle']
+    api rootProject.ext.dependencies['rxlifecycle-android']
+    api rootProject.ext.dependencies['rxlifecycle-components']
+    api rootProject.ext.dependencies['rxlifecycle-components-preference']
+    api rootProject.ext.dependencies['rx-preferences']
+
+    api rootProject.ext.dependencies['mmkv']
+
+    api rootProject.ext.dependencies['Toasty']
+
+    api rootProject.ext.dependencies['rxbinding']
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="statusbar_view" type="id"/>
+    <item name="translucent_view" type="id"/>
+    <item name="hazardous_operation_instruction" type="id" />
+
+    <item type="id" name="iv_back"/>
+    <item type="id" name="tv_search"/>
+    <item type="id" name="ll_title_search"/>
+    <item type="id" name="fab_back_top"/>
+    <item type="id" name="icon_search"/>
+    <item type="id" name="recycler_view"/>
+    <item type="id" name="emptyView"/>
+    <item type="id" name="tv_first_filter"/>
+    <item type="id" name="tv_second_filter"/>
+    <item type="id" name="tv_third_filter"/>
+</resources>
