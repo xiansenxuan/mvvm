@@ -205,7 +205,7 @@ public abstract class BaseActivity extends DataBindingActivity implements IBaseA
                 SoftInputUtils.hideSoftInputFromWindow(this);
             }
         }
-        return dispatchTouchEvent(ev) || super.dispatchTouchEvent(ev);
+        return super.dispatchTouchEvent(ev);
     }
 
     public boolean isShouldHideInput(MotionEvent event) {
@@ -232,4 +232,7 @@ public abstract class BaseActivity extends DataBindingActivity implements IBaseA
     }
 
 
+    public void cancelRequest() {
+
+    }
 }

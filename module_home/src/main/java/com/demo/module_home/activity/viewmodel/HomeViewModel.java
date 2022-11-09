@@ -7,6 +7,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.demo.lib_base.config.base.BaseViewModel;
 
+import java.util.ArrayList;
+
 /**
  * @author: wanglei
  * @Description: com.demo.module_home.activity.viewmodel
@@ -20,5 +22,11 @@ public class HomeViewModel extends BaseViewModel {
         super(application);
     }
 
+    private void refreshData(){
+        ArrayList<String> list =new ArrayList<>();
+
+
+
+    }
 
 }

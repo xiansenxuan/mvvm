@@ -20,6 +20,7 @@ public interface SystemDefaultConfig {
 
     int sequence=2212;
 
+    String LOG_TAG="MyLogger";
     String LIFE_TAG = "LIFE_TAG";
     String RX_TAG = "RX_TAG";
     String BAIDU_TAG    = "BAIDU_TAG";

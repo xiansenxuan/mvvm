@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="top" >
+
+    <RelativeLayout
+        android:id="@+id/listview_header_content"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        >
+
+        <LinearLayout
+            android:id="@+id/listview_header_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="60dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.github.jdsjlzx.view.SimpleViewSwitcher
+                android:id="@+id/loading_progressbar"
+                android:layout_width="30dip"
+                android:layout_height="30dip"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/refresh_status_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:textColor="#B5B5B5"
+                android:text="@string/listview_header_hint_normal" />
+
+
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+</LinearLayout>

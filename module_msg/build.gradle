@@ -1,4 +1,4 @@
-if (!isNeedMsgModule.toBoolean()) {
+if (isNeedMsgModule.toBoolean()) {
     apply plugin: 'com.android.application'
 } else {
     apply plugin: 'com.android.library'
@@ -22,7 +22,7 @@ android {
             }
         }
 
-        if (!isNeedMsgModule.toBoolean()) {
+        if (isNeedMsgModule.toBoolean()) {
             applicationId rootProject.ext.android['applicationId']
         }
     }
@@ -30,7 +30,7 @@ android {
 
     sourceSets {
         main {
-            if (isNeedHomeModule.toBoolean()) {
+            if (!isNeedHomeModule.toBoolean()) {
                 manifest.srcFile 'src/main/AndroidManifest.xml'
             } else {
                 manifest.srcFile 'src/main/AndroidManifest.xml'
@@ -53,14 +53,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-/*    buildFeatures {
-
-        viewBinding = true
-
-    }*/
-
     buildFeatures {
         dataBinding  = true
+
+        //viewBinding = true
     }
 }
 

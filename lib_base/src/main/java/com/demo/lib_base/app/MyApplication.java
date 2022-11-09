@@ -13,6 +13,8 @@ import androidx.multidex.MultiDex;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.demo.lib_base.Constant;
+import com.demo.lib_base.clash.CrashHandler;
+import com.demo.lib_base.inter.SystemDefaultConfig;
 import com.elvishew.xlog.LogConfiguration;
 import com.elvishew.xlog.LogLevel;
 import com.elvishew.xlog.XLog;
@@ -47,6 +49,7 @@ public class MyApplication extends Application  implements ViewModelStoreOwner, 
 
         initRouter();
         initLogger();
+        initCrashException();
     }
 
     public static MyApplication getInstance() {
@@ -74,38 +77,6 @@ public class MyApplication extends Application  implements ViewModelStoreOwner, 
 
     public boolean isDebug(){
         return true;
-    }
-
-    private void initLogger() {
-        LogConfiguration config = new LogConfiguration.Builder()
-                .logLevel(isDebug() ? LogLevel.ALL             // 指定日志级别，低于该级别的日志将不会被打印，默认为 LogLevel.ALL
-                        : LogLevel.NONE)
-                .tag(Constant.LOG_TAG)                                         // 指定 TAG，默认为 "X-LOG"
-                .build();
-
-        Printer filePrinter = new FilePrinter                      // 打印日志到文件的打印器
-                .Builder(getLogPath(""))                             // 指定保存日志文件的路径
-                .fileNameGenerator(new FileNameGenerator() {
-                    @Override
-                    public boolean isFileNameChangeable() {
-                        return true;
-                    }
-
-                    @Override
-                    public String generateFileName(int logLevel, long timestamp) {
-                        return getFileName()+".txt";
-                    }
-                })        // 指定日志文件名生成器，默认为 ChangelessFileNameGenerator("log")
-                .backupStrategy(new NeverBackupStrategy())             // 指定日志文件备份策略，默认为 FileSizeBackupStrategy(1024 * 1024)
-                .cleanStrategy(new FileLastModifiedCleanStrategy(7*24*60*60*1000))
-                .flattener(new ClassicFlattener())                     // Default: DefaultFlattener
-                .build();
-
-        XLog.init(                                                 // 初始化 XLog
-                config,                                                // 指定日志配置，如果不指定，会默认使用 new LogConfiguration.Builder().build()
-                new AndroidPrinter(),
-                filePrinter);
-
     }
 
     public static String getFileName() {
@@ -139,6 +110,42 @@ public class MyApplication extends Application  implements ViewModelStoreOwner, 
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
+    }
+
+    private void initCrashException() {
+        CrashHandler.getInstance().init(this);
+    }
+
+    private void initLogger() {
+        LogConfiguration config = new LogConfiguration.Builder()
+                .logLevel(isDebug() ? LogLevel.ALL             // 指定日志级别，低于该级别的日志将不会被打印，默认为 LogLevel.ALL
+                        : LogLevel.NONE)
+                .tag(SystemDefaultConfig.LIFE_TAG)                                         // 指定 TAG，默认为 "X-LOG"
+                .build();
+
+        Printer filePrinter = new FilePrinter                      // 打印日志到文件的打印器
+                .Builder(getLogPath(""))                             // 指定保存日志文件的路径
+                .fileNameGenerator(new FileNameGenerator() {
+                    @Override
+                    public boolean isFileNameChangeable() {
+                        return true;
+                    }
+
+                    @Override
+                    public String generateFileName(int logLevel, long timestamp) {
+                        return getFileName()+".txt";
+                    }
+                })        // 指定日志文件名生成器，默认为 ChangelessFileNameGenerator("log")
+                .backupStrategy(new NeverBackupStrategy())             // 指定日志文件备份策略，默认为 FileSizeBackupStrategy(1024 * 1024)
+                .cleanStrategy(new FileLastModifiedCleanStrategy(7L*24*60*60*1000))
+                .flattener(new ClassicFlattener())                     // Default: DefaultFlattener
+                .build();
+
+        XLog.init(                                                 // 初始化 XLog
+                config,                                                // 指定日志配置，如果不指定，会默认使用 new LogConfiguration.Builder().build()
+                new AndroidPrinter(),
+                filePrinter);
+
     }
 /*
     @Override

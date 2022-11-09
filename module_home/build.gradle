@@ -1,6 +1,8 @@
-if (!isNeedHomeModule.toBoolean()) {
+if (isNeedHomeModule.toBoolean()) {
+    //作为独立App应用运行
     apply plugin: 'com.android.application'
 } else {
+    //作为组件运行
     apply plugin: 'com.android.library'
 }
 
@@ -22,14 +24,14 @@ android {
             }
         }
 
-        if (!isNeedHomeModule.toBoolean()) {
+        if (isNeedHomeModule.toBoolean()) {
             applicationId rootProject.ext.android['applicationId']
         }
     }
 
     sourceSets {
         main {
-            if (isNeedHomeModule.toBoolean()) {
+            if (!isNeedHomeModule.toBoolean()) {
                 manifest.srcFile 'src/main/AndroidManifest.xml'
             } else {
                 manifest.srcFile 'src/main/AndroidManifest.xml'
@@ -52,14 +54,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-/*    buildFeatures {
-
-        viewBinding = true
-
-    }*/
-
     buildFeatures {
         dataBinding  = true
+
+        //viewBinding = true
     }
 }
 

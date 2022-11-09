@@ -1,7 +1,9 @@
+rootProject.name = "mvvm"
+
 include ':lib_entity'
 include ':lib_res'
 include ':module_msg'
 include ':module_home'
 include ':lib_base'
 include ':app'
-rootProject.name = "mvvm"
+include ':LRecyclerview'

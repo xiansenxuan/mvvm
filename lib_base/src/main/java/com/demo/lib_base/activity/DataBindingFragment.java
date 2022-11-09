@@ -34,7 +34,7 @@ public abstract class DataBindingFragment extends Fragment {
     protected abstract void initViewModel();
 
     protected abstract int getLayoutResId();
-
+/*
     public <V extends ViewDataBinding> V getDataBinding(Class<V> modelClass){
         if(modelClass.isInstance(mBinding)){
             try {
@@ -46,32 +46,45 @@ public abstract class DataBindingFragment extends Fragment {
             }
         }
         throw new RuntimeException("Cannot create an instance of " + modelClass);
-    }
+    }*/
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.initViewModel();
     }
+
+    protected abstract void initView(View view, @Nullable Bundle savedInstanceState);
 
     @Override
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        inflater.inflate(getLayoutResId(), container,false);
+
         mBinding = DataBindingUtil.inflate(inflater, getLayoutResId(), container, false);
         mBinding.setLifecycleOwner(this);
+
         return mBinding.getRoot();
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-    public boolean isDebug() {
-        return this.mActivity.getApplicationContext().getApplicationInfo() != null && (this.mActivity.getApplicationContext().getApplicationInfo().flags & 2) != 0;
+        initViewModel();
+        initView(view,savedInstanceState);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        this.mBinding.unbind();
+        this.mBinding = null;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        this.mBinding.unbind();
-        this.mBinding = null;
     }
 
 }

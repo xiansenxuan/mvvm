@@ -13,11 +13,11 @@
         android:theme="@style/Theme.Mvvm">
         <activity android:name=".activity.HomeActivity"
             tools:ignore="WrongManifestParent">
-            <intent-filter>
+<!--            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
 
         <activity android:name=".activity.ResultActivity" tools:ignore="WrongManifestParent"/>

@@ -19,7 +19,6 @@ public class ResultActivity extends BaseActivity {
     @Override
     protected void initViewModel() {
         mResultViewModel=getActivityScopeViewModel(ResultViewModel.class);
-        mBinding=getDataBinding(ActivityResultBinding.class);
     }
 
     @Override
@@ -42,5 +41,10 @@ public class ResultActivity extends BaseActivity {
         mResultViewModel =  new ViewModelProvider(this).get(ResultViewModel.class);
 
         mResultViewModel.number=888;
+    }
+
+    @Override
+    public void setRxListener() {
+
     }
 }

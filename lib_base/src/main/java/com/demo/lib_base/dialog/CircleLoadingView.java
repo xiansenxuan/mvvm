@@ -80,38 +80,22 @@ public class CircleLoadingView extends Dialog {
             Activity activity= (Activity) context;
             if(!activity.isFinishing() && !isShowing()){
                 super.show();
-
-                closeSensor();
             }
         }else if(context instanceof Service){
             if(!isShowing()){
                 super.show();
-
-                closeSensor();
             }
         }else{
             if(!isShowing()){
                 super.show();
-
-                closeSensor();
             }
         }
-    }
-
-    private void closeSensor() {
-        DeviceSensorService.isOpenShake=false;
-    }
-
-    private void openSensor(){
-        DeviceSensorService.isOpenShake=true;
     }
 
     @Override
     public void dismiss() {
         if (isShowing()) {
             super.dismiss();
-
-            openSensor();
         }
     }
 
@@ -119,8 +103,6 @@ public class CircleLoadingView extends Dialog {
     public void cancel() {
         if(isShowing()){
             super.cancel();
-
-            openSensor();
         }
     }
 

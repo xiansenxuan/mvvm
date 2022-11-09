@@ -97,10 +97,10 @@ dependencies {
     api project(":lib_base")
     api project(":lib_res")
 
-    if (isNeedHomeModule.toBoolean()) {
+    if (!isNeedHomeModule.toBoolean()) {
         api project(':module_home')
     }
-    if (isNeedMsgModule.toBoolean()) {
+    if (!isNeedMsgModule.toBoolean()) {
         api project(':module_msg')
     }
 

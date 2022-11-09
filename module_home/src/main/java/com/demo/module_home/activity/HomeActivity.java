@@ -20,9 +20,10 @@ import com.demo.module_home.R;
 import com.demo.module_home.activity.viewmodel.HomeViewModel;
 import com.demo.module_home.databinding.ActivityHomeBinding;
 
-@Route(path = RouteUrl.activity_home)
+@Route(path = RouteUrl.HomeActivity)
 public class HomeActivity extends BaseActivity {
     private HomeViewModel mState;
+    private ActivityHomeBinding mBinding;
 
     ActivityResultLauncher<Intent> result = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
@@ -51,6 +52,16 @@ public class HomeActivity extends BaseActivity {
     @Override
     public Toolbar getToolbar() {
         return null;
+    }
+
+    @Override
+    protected void initViewModel() {
+        mState=getActivityScopeViewModel(HomeViewModel.class);
+    }
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.activity_home;
     }
 
     @Override
@@ -116,16 +127,6 @@ public class HomeActivity extends BaseActivity {
 
     }
 
-    @Override
-    protected void initViewModel() {
-        mState=getActivityScopeViewModel(HomeViewModel.class);
-        mBinding= getDataBinding(ActivityHomeBinding.class);
-    }
-
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_home;
-    }
 
     @Override
     protected void onDestroy() {

@@ -26,22 +26,27 @@ public abstract class BaseFragment extends DataBindingFragment {
     private ViewModelProvider mActivityProvider;
     private ViewModelProvider mApplicationProvider;
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Log.i(Constant.LIFE_TAG, "onCreate   " + this);
-
-        initView(savedInstanceState);
     }
-
-    protected abstract void initView(Bundle savedInstanceState);
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.i(Constant.LIFE_TAG, "onCreateView   " + this);
+
         return super.onCreateView(inflater,container,savedInstanceState);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        Log.i(Constant.LIFE_TAG, "onViewCreated: "+this);
     }
 
     @Override
@@ -80,17 +85,10 @@ public abstract class BaseFragment extends DataBindingFragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        Log.d(Constant.LIFE_TAG, "onViewCreated: "+this);
-    }
-
-    @Override
     public void onDestroyView() {
         super.onDestroyView();
 
-        Log.d(Constant.LIFE_TAG, "onDestroyView: "+this);
+        Log.i(Constant.LIFE_TAG, "onDestroyView: "+this);
     }
 
 
@@ -117,5 +115,9 @@ public abstract class BaseFragment extends DataBindingFragment {
 
     protected NavController nav() {
         return NavHostFragment.findNavController(this);
+    }
+
+    public void cancelRequest() {
+
     }
 }

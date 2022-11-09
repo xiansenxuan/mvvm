@@ -16,12 +16,13 @@ public  abstract class DataBindingActivity extends AppCompatActivity {
     protected ViewDataBinding mBinding;
 
     public DataBindingActivity() {
+
     }
 
     protected abstract void initViewModel();
 
     protected abstract int getLayoutResId();
-
+/*
     public <V extends ViewDataBinding> V getDataBinding(Class<V> modelClass){
         if(modelClass.isInstance(mBinding)){
             try {
@@ -33,15 +34,16 @@ public  abstract class DataBindingActivity extends AppCompatActivity {
             }
         }
         throw new RuntimeException("Cannot create an instance of " + modelClass);
-    }
+    }*/
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initViewModel();
 
         mBinding = DataBindingUtil.setContentView(this, getLayoutResId());
         mBinding.setLifecycleOwner(this);
+
+        initViewModel();
     }
 
     public boolean isDebug() {
