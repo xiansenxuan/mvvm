@@ -11,18 +11,24 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
-import androidx.fragment.app.Fragment;
+
+import com.trello.rxlifecycle2.components.support.RxFragment;
 
 /**
  * @author: xuan
  * @Description: com.demo.lib_base.activity
  * @since: 2021/11/12 14:23
  */
-public abstract class DataBindingFragment extends Fragment {
+public abstract class DataBindingFragment extends RxFragment implements IBaseFragmentInter{
     protected AppCompatActivity mActivity;
     protected ViewDataBinding mBinding;
 
     public DataBindingFragment() {
+    }
+
+    @Override
+    public ViewDataBinding getDataBinding() {
+        return mBinding;
     }
 
     @Override
@@ -31,9 +37,6 @@ public abstract class DataBindingFragment extends Fragment {
         this.mActivity = (AppCompatActivity)context;
     }
 
-    protected abstract void initViewModel();
-
-    protected abstract int getLayoutResId();
 /*
     public <V extends ViewDataBinding> V getDataBinding(Class<V> modelClass){
         if(modelClass.isInstance(mBinding)){
@@ -53,15 +56,14 @@ public abstract class DataBindingFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    protected abstract void initView(View view, @Nullable Bundle savedInstanceState);
-
     @Override
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        inflater.inflate(getLayoutResId(), container,false);
-
         mBinding = DataBindingUtil.inflate(inflater, getLayoutResId(), container, false);
         mBinding.setLifecycleOwner(this);
+
+        initViewModel();
+        initView(savedInstanceState,mBinding.getRoot());
 
         return mBinding.getRoot();
     }
@@ -70,8 +72,8 @@ public abstract class DataBindingFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        initViewModel();
-        initView(view,savedInstanceState);
+        Bundle bundle = getArguments();
+        initArguments(bundle);
     }
 
     @Override

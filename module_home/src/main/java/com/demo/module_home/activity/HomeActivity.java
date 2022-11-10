@@ -2,8 +2,6 @@ package com.demo.module_home.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -14,7 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.demo.lib_base.RouteUrl;
+import com.demo.lib_base.route.RouteUrl;
 import com.demo.lib_base.activity.BaseActivity;
 import com.demo.module_home.R;
 import com.demo.module_home.activity.viewmodel.HomeViewModel;
@@ -70,61 +68,6 @@ public class HomeActivity extends BaseActivity {
         String str=getIntent().getStringExtra("str");
 
         Toast.makeText(HomeActivity.this,"str = "+str,Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onSupportVisible() {
-
-    }
-
-    @Override
-    public void setRxListener() {
-
-    }
-
-    @Override
-    public void registerEventBus() {
-
-    }
-
-    @Override
-    public void unregisterEventBus() {
-
-    }
-
-    @Override
-    public int newCreateOptionsMenu() {
-        return 0;
-    }
-
-    @Override
-    public void newOptionsItemSelected(MenuItem item) {
-
-    }
-
-    @Override
-    public void onRefreshData() {
-
-    }
-
-    @Override
-    public View getNotNetWorkView() {
-        return null;
-    }
-
-    @Override
-    public View getNotDataView() {
-        return null;
-    }
-
-    @Override
-    public void networkDisconnectedProcessing() {
-
-    }
-
-    @Override
-    public void networkConnectionProcessing() {
-
     }
 
 

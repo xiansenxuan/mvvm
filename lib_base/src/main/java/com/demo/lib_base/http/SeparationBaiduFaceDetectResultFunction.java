@@ -3,7 +3,7 @@ package com.demo.lib_base.http;
 import android.annotation.SuppressLint;
 import android.util.Log;
 
-import com.demo.lib_base.inter.SystemDefaultConfig;
+import com.demo.lib_base.constant.SystemDefaultConfig;
 
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;

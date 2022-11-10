@@ -1,28 +1,27 @@
-apply plugin: 'com.android.library'
-
-
-ext {
-    libraryVersionCode = 1
-    libraryVersionName = '1.0'
+plugins {
+    id 'com.android.library'
 }
 
-android {
-    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
-    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
+apply plugin: 'io.objectbox' // after applying Android plugin
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+android {
+    compileSdkVersion rootProject.ext.android['compileSdkVersion']
+    buildToolsVersion rootProject.ext.android['buildToolsVersion']
 
     defaultConfig {
-        minSdkVersion rootProject.ext.android["minSdkVersion"]
-        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
-        versionCode libraryVersionCode
-        versionName libraryVersionName
+        minSdkVersion rootProject.ext.android['minSdkVersion']
+        targetSdkVersion rootProject.ext.android['targetSdkVersion']
+        versionCode rootProject.ext.android['versionCode']
+        versionName rootProject.ext.android['versionName']
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+
+        javaCompileOptions {
+            annotationProcessorOptions {7
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
     }
 
     buildTypes {
@@ -31,17 +30,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
-    //proceed with lint errors
-    lintOptions {
-        abortOnError false
+    buildFeatures {
+        dataBinding  = true
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation rootProject.ext.dependencies['appcompat-v7']
-    implementation rootProject.ext.dependencies['recyclerview-v7']
-    implementation rootProject.ext.dependencies['material']
+    api rootProject.ext.dependencies['appcompat']
+    api rootProject.ext.dependencies['material']
+    api rootProject.ext.dependencies['constraintlayout']
+    api rootProject.ext.dependencies['recyclerview']
 }

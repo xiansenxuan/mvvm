@@ -6,8 +6,11 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.demo.lib_base.config.base.BaseViewModel;
+import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import java.util.ArrayList;
+
+import io.reactivex.functions.Consumer;
 
 /**
  * @author: wanglei
@@ -15,18 +18,24 @@ import java.util.ArrayList;
  * @since: 2021/3/2 14:09
  */
 public class HomeViewModel extends BaseViewModel {
-
-    MutableLiveData<String> list=new MutableLiveData<>();
+    public MutableLiveData<String> list=new MutableLiveData<>();
 
     public HomeViewModel(@NonNull Application application) {
         super(application);
     }
 
-    private void refreshData(){
+    public void requestData(Consumer consumer,LifecycleTransformer lifecycleTransformer){
+        query(apiServer.queryUserData("1"),consumer,lifecycleTransformer);
+    }
+
+    public ArrayList<String> refreshData(){
         ArrayList<String> list =new ArrayList<>();
 
+        for (int i = 0; i < 100; i++) {
+            list.add("第"+i+"行号");
+        }
 
-
+        return list;
     }
 
 }

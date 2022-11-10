@@ -28,4 +28,5 @@ public interface ServiceCodeInter {
     int lost_page_code =102;// http 404
     int unknown_service_code =103;// 未知的ip地址
 
+    int reset_login_code = 999;
 }

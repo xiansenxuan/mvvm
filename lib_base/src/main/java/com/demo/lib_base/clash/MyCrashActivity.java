@@ -30,10 +30,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 
 import com.demo.lib_base.R;
-import com.demo.lib_base.RouteUtils;
+import com.demo.lib_base.route.RouteUtils;
 import com.demo.lib_base.activity.BaseActivity;
 import com.demo.lib_base.databinding.ActivityCustomErrorBinding;
-import com.demo.lib_base.inter.SystemDefaultConfig;
+import com.demo.lib_base.constant.SystemDefaultConfig;
 import com.demo.lib_base.utils.LoggerUtils;
 import com.demo.lib_base.utils.ToastUtils;
 

@@ -3,16 +3,17 @@ package com.demo.lib_base.activity;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 /**
  * @author: xuan
  * @Description: com.demo.lib_base.activity
  * @since: 2021/11/11 18:41
  */
-public  abstract class DataBindingActivity extends AppCompatActivity {
+public  abstract class DataBindingActivity extends RxAppCompatActivity {
     protected ViewDataBinding mBinding;
 
     public DataBindingActivity() {

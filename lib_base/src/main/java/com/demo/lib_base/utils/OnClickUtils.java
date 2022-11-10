@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.View;
 
-import com.demo.lib_base.inter.SystemDefaultConfig;
+import com.demo.lib_base.constant.SystemDefaultConfig;
 import com.jakewharton.rxbinding3.view.RxView;
 
 import org.joda.time.DateTime;

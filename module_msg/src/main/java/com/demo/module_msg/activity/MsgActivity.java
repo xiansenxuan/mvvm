@@ -9,8 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.demo.lib_base.RouteUrl;
-import com.demo.lib_base.RouteUtils;
+import com.demo.lib_base.route.RouteUrl;
+import com.demo.lib_base.route.RouteUtils;
 import com.demo.module_msg.R;
 import com.demo.module_msg.databinding.ActivityMsgBinding;
 

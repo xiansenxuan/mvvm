@@ -2,6 +2,7 @@ package com.demo.lib_base.activity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,12 +14,17 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.demo.lib_base.Constant;
+import com.demo.lib_base.adapter.BaseRecyclerViewAdapter;
 import com.demo.lib_base.app.MyApplication;
 import com.demo.lib_base.dialog.CircleLoadingView;
-import com.demo.lib_base.inter.SystemDefaultConfig;
+import com.demo.lib_base.inter.OnScanCallback;
+import com.demo.lib_base.constant.SystemDefaultConfig;
 import com.demo.lib_base.utils.SoftInputUtils;
 import com.demo.lib_base.utils.StatusBarUtil;
+import com.xuan.view.interfaces.OnLoadMoreListener;
+import com.xuan.view.interfaces.OnRefreshListener;
+import com.xuan.view.recyclerview.LRecyclerView;
+import com.xuan.view.recyclerview.LRecyclerViewAdapter;
 
 /**
  * @author: wanglei
@@ -40,12 +46,16 @@ public abstract class BaseActivity extends DataBindingActivity implements IBaseA
     private boolean isReconnection = false;
     //是否第一次调用 onSupportVisible
     private boolean isOnSupportVisible = true;
+    /**
+     * 加载的页数
+     */
+    protected int pageNo=1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.i(Constant.LIFE_TAG, "onCreate   " + this);
+        Log.i(SystemDefaultConfig.LIFE_TAG, "onCreate   " + this);
 
         initView(savedInstanceState);
 
@@ -59,17 +69,22 @@ public abstract class BaseActivity extends DataBindingActivity implements IBaseA
     public abstract void initView(Bundle savedInstanceState);
 
     @Override
+    public void setRxListener() {
+
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
 
-        Log.i(Constant.LIFE_TAG, "onStart   " + this);
+        Log.i(SystemDefaultConfig.LIFE_TAG, "onStart   " + this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        Log.i(Constant.LIFE_TAG, "onResume   " + this);
+        Log.i(SystemDefaultConfig.LIFE_TAG, "onResume   " + this);
 
         isResume = true;
 
@@ -101,28 +116,28 @@ public abstract class BaseActivity extends DataBindingActivity implements IBaseA
     protected void onPause() {
         super.onPause();
 
-        Log.i(Constant.LIFE_TAG, "onPause   " + this);
+        Log.i(SystemDefaultConfig.LIFE_TAG, "onPause   " + this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
 
-        Log.i(Constant.LIFE_TAG, "onStop   " + this);
+        Log.i(SystemDefaultConfig.LIFE_TAG, "onStop   " + this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
-        Log.i(Constant.LIFE_TAG, "onDestroy   " + this);
+        Log.i(SystemDefaultConfig.LIFE_TAG, "onDestroy   " + this);
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
 
-        Log.i(Constant.LIFE_TAG, "onRestart   " + this);
+        Log.i(SystemDefaultConfig.LIFE_TAG, "onRestart   " + this);
     }
 
     protected <T extends ViewModel> T getActivityScopeViewModel(@NonNull Class<T> modelClass) {
@@ -234,5 +249,72 @@ public abstract class BaseActivity extends DataBindingActivity implements IBaseA
 
     public void cancelRequest() {
 
+    }
+
+
+    /**
+     * 刷新操作
+     */
+    protected void onRefresh(){
+        pageNo=1;
+    }
+
+    /**
+     * 加载更多操作
+     */
+    protected void onLoadMore(){
+        pageNo++;
+    }
+
+    /**
+     * 查询数据
+     */
+    protected void queryData(){}
+
+    protected LRecyclerViewAdapter addRecyclerViewAdapter(LRecyclerView recyclerView, BaseRecyclerViewAdapter adapter){
+        LRecyclerViewAdapter lAdapter=new LRecyclerViewAdapter(adapter);
+        recyclerView.setAdapter(lAdapter);
+        return lAdapter;
+    }
+
+    protected void addOnRefreshListener(LRecyclerView recyclerView, BaseRecyclerViewAdapter adapter){
+        recyclerView.setPullRefreshEnabled(true);
+        recyclerView.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                adapter.isSelectPosition=0;
+
+                BaseActivity.this.onRefresh();
+
+                recyclerView.refreshCompleteDelayed(2000);
+            }
+        });
+    }
+
+    protected void addOnLoadMoreListener(LRecyclerView recyclerView){
+        recyclerView.setPullRefreshEnabled(true);
+        recyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                BaseActivity.this.onLoadMore();
+
+                recyclerView.refreshCompleteDelayed(2000);
+            }
+        });
+    }
+
+    protected void addOnScanListener(EditText et, OnScanCallback callback){
+        et.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if(callback!=null){
+                        callback.onScan(et.getText().toString().trim());
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 }

@@ -13,10 +13,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.demo.lib_base.inter.SystemDefaultConfig;
-import com.galaxis.framework.R;
-import com.galaxis.framework.bean.PopListEntity;
-import com.galaxis.utils.constant.SystemConstants;
+import com.demo.lib_base.R;
+import com.demo.lib_base.entity.entity.PopListEntity;
+import com.demo.lib_base.constant.SystemDefaultConfig;
 import com.jakewharton.rxbinding3.view.RxView;
 
 import java.util.ArrayList;
@@ -78,7 +77,7 @@ public class BaseListPopupWindow extends ListPopupWindow {
         this.callBack=callBack;
 
         RxView.clicks(anchor)
-                .throttleFirst(SystemConstants.throttleFirstTime, TimeUnit.MILLISECONDS)
+                .throttleFirst(SystemDefaultConfig.quick_click_time, TimeUnit.MILLISECONDS)
                 .subscribe(new Consumer<Unit>() {
                     @Override
                     public void accept(Unit unit) throws Exception {

@@ -50,6 +50,7 @@ dependencies {
 
     api project(':lib_entity')
     api project(':lib_res')
+    api project(':LRecyclerview')
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

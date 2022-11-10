@@ -2,8 +2,8 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval" >
     <!-- 大小 -->
     <size
-        android:width="@dimen/common_dot_red_size"
-        android:height="@dimen/common_dot_red_size"/><!-- 宽度和高度 -->
+        android:width="10dp"
+        android:height="10dp"/><!-- 宽度和高度 -->
 
     <!-- 填充 -->
     <solid

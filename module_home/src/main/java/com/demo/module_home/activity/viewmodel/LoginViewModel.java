@@ -9,7 +9,7 @@ import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
 
 import com.demo.entity.home.UserEntity;
-import com.demo.lib_base.ObjectBoxUtils;
+import com.demo.lib_base.db.ObjectBoxUtils;
 import com.demo.lib_base.config.base.BaseViewModel;
 
 import io.objectbox.Box;

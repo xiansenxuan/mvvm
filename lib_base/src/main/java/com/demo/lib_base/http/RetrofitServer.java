@@ -3,18 +3,28 @@ package com.demo.lib_base.http;
 import android.annotation.SuppressLint;
 import android.util.Log;
 
-import com.demo.lib_base.inter.SystemDefaultConfig;
+import androidx.annotation.NonNull;
+
+import com.demo.lib_base.route.RouteUtils;
+import com.demo.lib_base.app.MyApplication;
+import com.demo.lib_base.dialog.CircleLoadingView;
+import com.demo.lib_base.constant.SystemDefaultConfig;
+import com.demo.lib_base.utils.LoggerUtils;
+import com.demo.lib_base.utils.ToastUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.Interceptor;
@@ -36,28 +46,48 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  * @descript
  */
 public class RetrofitServer {
-    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+    private CircleLoadingView loadingView;
 
-    private OkHttpClient.Builder builder;
-    private Retrofit.Builder retrofitBuilder;
+    protected boolean isShowProgress=true;
+    protected boolean isHideProgress=true;
+    protected boolean isKeepAlive=false;
 
-    private Retrofit.Builder stringRetrofitBuilder;
+    public static RetrofitServer server;
+    
+    public static RetrofitServer getInstance() {
+        if(server==null){
+            synchronized (RetrofitServer.class){
+                server=new RetrofitServer();
+            }
+        }
+        return server;
+    }
+    //////////////////////////////
+
+    public CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+
+    public OkHttpClient.Builder builder;
+    public Retrofit.Builder retrofitBuilder;
+
+    public Retrofit.Builder stringRetrofitBuilder;
 
     public RetrofitServer() {
         if (builder == null) {
-            builder = new OkHttpClient.Builder();
-            builder.connectTimeout(ServicePropertyInter.default_timeout, TimeUnit.MILLISECONDS)
-                    .readTimeout(ServicePropertyInter.read_timeout, TimeUnit.MILLISECONDS)
-                    .writeTimeout(ServicePropertyInter.write_timeout, TimeUnit.MILLISECONDS)
-                    .retryOnConnectionFailure(true)
+            synchronized (RetrofitServer.class) {
+                builder = new OkHttpClient.Builder();
+                builder.connectTimeout(ServicePropertyInter.default_timeout, TimeUnit.MILLISECONDS)
+                        .readTimeout(ServicePropertyInter.read_timeout, TimeUnit.MILLISECONDS)
+                        .writeTimeout(ServicePropertyInter.write_timeout, TimeUnit.MILLISECONDS)
+                        .retryOnConnectionFailure(true)
 //                    .addInterceptor(new CacheRequestInterceptor())
 //                     .addNetworkInterceptor(new CacheResponseInterceptor())
-                    .addInterceptor(new HeadInterceptor());
+                        .addInterceptor(new HeadInterceptor());
 
-            if (SystemDefaultConfig.isDebug) {
-                builder.addInterceptor(new ServiceHttpLoggingInterceptor()
-                        .setLevel(ServiceHttpLoggingInterceptor.Level.BODY)
-                        .setMaxBufferSize(30 * 1024 * 1024));
+                if (SystemDefaultConfig.isDebug) {
+                    builder.addInterceptor(new ServiceHttpLoggingInterceptor()
+                            .setLevel(ServiceHttpLoggingInterceptor.Level.BODY)
+                            .setMaxBufferSize(30 * 1024 * 1024));
+                }
             }
         }
 
@@ -74,27 +104,30 @@ public class RetrofitServer {
                 .create();
 
         if (retrofitBuilder == null) {
-            retrofitBuilder = new Retrofit.Builder()
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-
-                    .client(client);
+            synchronized (RetrofitServer.class) {
+                retrofitBuilder = new Retrofit.Builder()
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                        .client(client);
+            }
         }
 
         if (stringRetrofitBuilder == null) {
-            stringRetrofitBuilder = new Retrofit.Builder()
-                    .addConverterFactory(ScalarsConverterFactory.create())
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .client(client);
+            synchronized (RetrofitServer.class) {
+                stringRetrofitBuilder = new Retrofit.Builder()
+                        .addConverterFactory(ScalarsConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                        .client(client);
+            }
         }
 
     }
 
-    private <T> T createApi(Class<T> clazz, String baseUrl) {
+    public <T> T createApi(Class<T> clazz, String baseUrl) {
         return retrofitBuilder.baseUrl(baseUrl).build().create(clazz);
     }
 
-    private <T> T createApi(Class<T> clazz, String baseUrl, Retrofit.Builder retrofitBuilder) {
+    public <T> T createApi(Class<T> clazz, String baseUrl, Retrofit.Builder retrofitBuilder) {
         return retrofitBuilder.baseUrl(baseUrl).build().create(clazz);
     }
 
@@ -107,7 +140,7 @@ public class RetrofitServer {
      */
     @SuppressLint("CheckResult")
     @SuppressWarnings("unchecked")
-    private <T> void toSubscribe(Observable<T> observable, Consumer<T> consumer, Consumer<Throwable> throwable, LifecycleTransformer lifecycleTransformer) {
+    public <T> void toSubscribe(Observable<T> observable, Consumer<T> consumer, Consumer<Throwable> throwable, LifecycleTransformer lifecycleTransformer) {
         Disposable subscribe = observable.compose(lifecycleTransformer)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -124,7 +157,7 @@ public class RetrofitServer {
 
     @SuppressLint("CheckResult")
     @SuppressWarnings("unchecked")
-    private Observable toObservable(Observable observable, LifecycleTransformer lifecycleTransformer) {
+    public Observable toObservable(Observable observable, LifecycleTransformer lifecycleTransformer) {
         return observable.compose(lifecycleTransformer)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
@@ -133,15 +166,245 @@ public class RetrofitServer {
     public void cancelRequest() {
         Log.i(SystemDefaultConfig.RX_TAG, "cancelRequest");
 
-        synchronized (mCompositeDisposable) {
-            if (mCompositeDisposable.size() > 0) {
-                mCompositeDisposable.clear();
+        if(!isKeepAlive){
+            synchronized (mCompositeDisposable) {
+                if (mCompositeDisposable.size() > 0) {
+                    mCompositeDisposable.clear();
+                }
             }
+        }
+    }
+
+    /**
+     * 获取保活状态
+     * @return
+     */
+    public boolean getKeepAlive(){
+        return isKeepAlive;
+    }
+
+    /**
+     * @param isKeepAlive 保活 后台或者onPause不会cancel
+     *                    需要保活的时候 传递true 并且
+     *                    请求中请勿传递 lifecycleTransformer
+     *                    否则后果自负
+     */
+    public void keepAlive(boolean isKeepAlive) {
+        this.isKeepAlive=isKeepAlive;
+    }
+///////////////////////////////////////////////////////////////////////////////////////////
+
+    public void processingSeparationResult(Object obj){
+        if(obj instanceof ErrorEntity){
+            LoggerUtils.i(SystemDefaultConfig.RX_TAG, " processingSeparationResult exception error   " + obj.toString());
+            processingErrorEntity((ErrorEntity) obj);
+        }else{//既不是需要的数据模型也不是服务器错误模型或者错误模型 判断json解析失败
+            showMsg("数据解析错误");
+        }
+    }
+
+    public void processingErrorEntity(ErrorEntity entity) {
+        //显示错误信息
+        showMsg(entity.errorMsg==null?"系统错误":entity.errorMsg);
+        //处理错误状态
+        if(entity.errorCode== ServiceCodeInter.reset_login_code){
+            //重新登录
+            resetLogin();
+        }
+    }
+
+    public void showMsg(String msg) {
+        ToastUtils.showDefaultToast(MyApplication.getInstance(),msg);
+    }
+
+    public void resetLogin() {
+        showMsg("请重新登录");
+
+        RouteUtils.startLogin();
+    }
+
+    public void showProgress() {
+        if(loadingView!=null){
+            loadingView.dismiss();
+            loadingView.cleanDrawable();
+            loadingView=null;
+        }
+        loadingView=new CircleLoadingView(MyApplication.getInstance().topActivity);
+        loadingView.show();
+    }
+
+    public void hideProgress() {
+        if(loadingView!=null){
+            loadingView.dismiss();
+            loadingView.cleanDrawable();
+            loadingView=null;
+        }
+    }
+
+    /**
+     * 单请求
+     * @param consumer
+     * @param observable
+     */
+    @SuppressWarnings("unchecked")
+    @SuppressLint("CheckResult")
+    public void processingNetwork(Consumer<Object> consumer, Observable observable){
+        putSubscribe(
+                observable
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnSubscribe(new Consumer() {
+                            @Override
+                            public void accept(Object o) throws Exception {
+                                Log.i(SystemDefaultConfig.RX_TAG,"doOnSubscribe   ");
+                                if(isShowProgress)
+                                    showProgress();
+
+                            }
+                        })
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doFinally(new Action() {
+                            @Override
+                            public void run() throws Exception {
+                                Log.i(SystemDefaultConfig.RX_TAG,"doFinally   ");
+                                if(isHideProgress){
+                                    hideProgress();
+                                }
+
+                            }
+                        })
+                        .flatMap(new SeparationEntityResultFunction())
+                        .onErrorResumeNext(new SeparationThrowableResumeFunction())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(consumer)
+        );
+    }
+
+    /**
+     * 单请求
+     * @param consumer
+     * @param singleIsShowProgress 单独控制 是否需要显示进度条 不受全局isShowProgress影响
+     * @param observable
+     */
+    @SuppressWarnings("unchecked")
+    @SuppressLint("CheckResult")
+    public void processingNetwork(Consumer<Object> consumer, boolean singleIsShowProgress, Observable observable){
+        putSubscribe(
+                observable
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnSubscribe(new Consumer() {
+                            @Override
+                            public void accept(Object o) throws Exception {
+                                Log.i(SystemDefaultConfig.RX_TAG,"doOnSubscribe   ");
+
+                                if(singleIsShowProgress)
+                                    showProgress();
+                            }
+                        })
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doFinally(new Action() {
+                            @Override
+                            public void run() throws Exception {
+                                Log.i(SystemDefaultConfig.RX_TAG,"doFinally   ");
+
+                                hideProgress();
+                            }
+                        })
+                        .flatMap(new SeparationEntityResultFunction())
+                        .onErrorResumeNext(new SeparationThrowableResumeFunction())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(consumer)
+        );
+    }
+
+    /**
+     * 多请求合并查询 并行
+     * @param consumer
+     * @param observables
+     */
+    @SuppressWarnings("unchecked")
+    @SuppressLint("CheckResult")
+    public void processingNetwork(Consumer<Object> consumer, Observable... observables){
+        if(observables!=null && observables.length>0){
+            putSubscribe(
+                    Observable.merge(new Iterable() {
+                        @NonNull
+                        @Override
+                        public Iterator iterator() {
+                            return Arrays.asList(observables).iterator();
+                        }
+                    })
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .doOnSubscribe(new Consumer() {
+                                @Override
+                                public void accept(Object o) throws Exception {
+                                    Log.i(SystemDefaultConfig.RX_TAG,"doOnSubscribe   ");
+
+                                    if(isShowProgress)
+                                        showProgress();
+                                }
+                            })
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .doFinally(new Action() {
+                                @Override
+                                public void run() throws Exception {
+                                    Log.i(SystemDefaultConfig.RX_TAG,"doFinally   ");
+
+                                    hideProgress();
+                                }
+                            })
+                            .flatMap(new SeparationEntityResultFunction())
+                            .onErrorResumeNext(new SeparationThrowableResumeFunction())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(consumer)
+            );
         }
 
     }
 
+    /**
+     * 多请求合并查询 串行
+     * @param consumer
+     * @param observables
+     */
+    @SuppressWarnings("unchecked")
+    @SuppressLint("CheckResult")
+    public void processingConcatNetwork(Consumer<Object> consumer, Observable... observables){
+        if(observables!=null && observables.length>0){
+            putSubscribe(
+                    Observable.concat(new Iterable() {
+                        @NonNull
+                        @Override
+                        public Iterator iterator() {
+                            return Arrays.asList(observables).iterator();
+                        }
+                    })
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .doOnSubscribe(new Consumer() {
+                                @Override
+                                public void accept(Object o) throws Exception {
+                                    Log.i(SystemDefaultConfig.RX_TAG,"doOnSubscribe   ");
 
+                                    if(isShowProgress)
+                                        showProgress();
+                                }
+                            })
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .doFinally(new Action() {
+                                @Override
+                                public void run() throws Exception {
+                                    Log.i(SystemDefaultConfig.RX_TAG,"doFinally   ");
+
+                                    hideProgress();
+                                }
+                            })
+                            .flatMap(new SeparationEntityResultFunction())
+                            .onErrorResumeNext(new SeparationThrowableResumeFunction())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(consumer)
+            );
+        }
+
+    }
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -182,7 +445,7 @@ public class HeadInterceptor implements Interceptor {
 //}
 //
 //class CacheRequestInterceptor implements Interceptor {
-//    private Request request;
+//    public Request request;
 //
 //    @SuppressLint("CheckResult")
 //    @Override= chain.request();
