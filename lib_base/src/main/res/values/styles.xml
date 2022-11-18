@@ -234,7 +234,6 @@
         <item name="android:gravity">center_vertical</item>
     </style>
 
-
     <style name="multi_textView" parent="Widget.AppCompat.TextView">
         <item name="android:layout_weight">1</item>
         <item name="android:layout_width">0dp</item>
