@@ -15,7 +15,10 @@
     <!--状态栏高度-->
     <dimen name="status_bar_height">28dp</dimen>
 
-    <dimen name="editor_size">35dp</dimen><!--图片编辑页面文本大小-->
+    <!--默认行高-->
+    <dimen name="line_height">26dp</dimen>
+    <!--标题栏高度-->
+    <dimen name="tool_bar_height">32dp</dimen>
 
     <!--文字大小-->
     <dimen name="default_text_max_size">16sp</dimen>
@@ -23,8 +26,7 @@
     <dimen name="default_text_min_size">12sp</dimen>
     <dimen name="default_text_min_min_size">10sp</dimen>
 
-    <!--登录注册 和 输入框边距-->
-    <dimen name="layout_input_horizontal">22.5dp</dimen>
+    <dimen name="drawable_width">14dp</dimen>
 
     <!--分割线-->
     <dimen name="default_divider_height">1dp</dimen>
@@ -62,9 +64,6 @@
     <dimen name="common_text_spacing">5dp</dimen>
 
     <!-- 通用 -->
-    <dimen name="isetting_item_height">55dip</dimen>
-    <dimen name="isetting_item_padding_left">15dip</dimen>
-    <dimen name="isetting_item_padding_right">15dip</dimen>
     <dimen name="action_bar_height">48dip</dimen>
     <dimen name="pager_sliding_tab_strip_height">40dip</dimen>
     <dimen name="actionbar_title_size">17dp</dimen>
@@ -92,7 +91,4 @@
     <dimen name="text_size_45">45sp</dimen>
     <dimen name="text_size_46">46sp</dimen>
     <dimen name="text_size_55">55sp</dimen>
-    <dimen name="sns_content_text_size_15">15sp</dimen>
-    <dimen name="split_one_pixels">1px</dimen>
-    <dimen name="text_small_size_ten_sp">10sp</dimen>
 </resources>

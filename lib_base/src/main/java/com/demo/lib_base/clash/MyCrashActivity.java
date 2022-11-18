@@ -21,51 +21,43 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.demo.lib_base.R;
-import com.demo.lib_base.route.RouteUtils;
-import com.demo.lib_base.activity.BaseActivity;
-import com.demo.lib_base.databinding.ActivityCustomErrorBinding;
 import com.demo.lib_base.constant.SystemDefaultConfig;
+import com.demo.lib_base.databinding.ActivityCustomErrorBinding;
+import com.demo.lib_base.route.RouteUtils;
 import com.demo.lib_base.utils.LoggerUtils;
 import com.demo.lib_base.utils.ToastUtils;
 
 
-public class MyCrashActivity extends BaseActivity {
+public class MyCrashActivity extends AppCompatActivity {
     protected ActivityCustomErrorBinding mBinding;
     private String errorInformation="";
 
     @Override
-    public void setRxListener() {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-    }
+        setContentView(R.layout.activity_custom_error);
 
-    @Override
-    protected void initViewModel() {
-
-    }
-
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_custom_error;
+        initView(savedInstanceState);
     }
 
     @SuppressLint("CheckResult")
     @SuppressWarnings("unchecked")
-    @Override
     public void initView(Bundle savedInstanceState) {
         ActivityCustomErrorBinding mBinding = DataBindingUtil.setContentView(this, R.layout.activity_custom_error);
 
         errorInformation=getIntent().getStringExtra(CrashHandler.ERROR_INFORMATION);
-        LoggerUtils.e(errorInformation);
-        Log.e(SystemDefaultConfig.LOG_TAG,errorInformation);
+        LoggerUtils.e(SystemDefaultConfig.LOG_TAG,errorInformation);
 
         mBinding.restartButton.setOnClickListener(new View.OnClickListener() {
             @Override

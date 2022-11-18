@@ -1,6 +1,9 @@
 package com.demo.lib_base.utils;
 
+import com.demo.lib_base.constant.SystemDefaultConfig;
 import com.elvishew.xlog.XLog;
+
+import javax.annotation.Nullable;
 
 /**
  * @author: xuan
@@ -9,14 +12,17 @@ import com.elvishew.xlog.XLog;
  */
 public class LoggerUtils {
     public static void i(Object... args){
-        XLog.i(args);
+        XLog.tag(SystemDefaultConfig.LOG_TAG).i(args);
     }
+
     public static void e(Object... args){
-        XLog.e(args);
+        XLog.tag(SystemDefaultConfig.LOG_TAG).e(args);
     }
-    public static void i(String tag, Object... args){
+
+    public static void i(String tag, @Nullable Object... args){
         XLog.tag(tag).i(args);
     }
+
     public static void e(String tag, Object... args){
         XLog.tag(tag).e(args);
     }

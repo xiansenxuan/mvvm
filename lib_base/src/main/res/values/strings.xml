@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">mvvm</string>
 
     <string name="error_occurred">发生错误。非常抱歉。</string>
     <string name="restart_app">重新启动应用</string>

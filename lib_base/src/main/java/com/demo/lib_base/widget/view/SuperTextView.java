@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 
 import androidx.appcompat.widget.AppCompatTextView;
 
-import com.demo.lib_base.R;
+import com.demo.lib_base.utils.DisplayUtil;
 
 /**
  * @author: xuan
@@ -19,15 +19,17 @@ public class SuperTextView extends AppCompatTextView {
     }
 
     public SuperTextView(Context context, AttributeSet attrs) {
-        this(context, attrs, R.attr.editTextStyle);
+        this(context, attrs, 0);
     }
 
     public SuperTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+
         init(context, attrs);
     }
 
     private void init(Context context, AttributeSet attrs) {
-
+        //setBackground(null); 默认有下划线背景（???）
+        setMinHeight(DisplayUtil.dip2px(context, 26));
     }
 }

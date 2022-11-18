@@ -12,8 +12,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.demo.lib_base.route.RouteUrl;
 import com.demo.lib_base.activity.BaseActivity;
+import com.demo.lib_base.route.RouteUrl;
 import com.demo.module_home.R;
 import com.demo.module_home.activity.viewmodel.HomeViewModel;
 import com.demo.module_home.databinding.ActivityHomeBinding;

@@ -5,6 +5,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.ViewDataBinding;
+
+import com.demo.lib_base.widget.view.SupportToolBar;
 
 /**
  * Created by xuan on 2017/5/19.
@@ -15,6 +18,10 @@ public interface IBaseActivityInter {
      * @return null 不添加Toolbar
      */
     Toolbar getToolbar();
+
+    ViewDataBinding getDataBinding();
+
+    SupportToolBar getSupportToolBar();
 
     /**
      * 在各种根元素初始化结束后的 其他参数化操作

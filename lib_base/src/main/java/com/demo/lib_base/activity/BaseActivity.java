@@ -2,7 +2,6 @@ package com.demo.lib_base.activity;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,29 +13,22 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.demo.lib_base.adapter.BaseRecyclerViewAdapter;
 import com.demo.lib_base.app.MyApplication;
-import com.demo.lib_base.dialog.CircleLoadingView;
-import com.demo.lib_base.inter.OnScanCallback;
 import com.demo.lib_base.constant.SystemDefaultConfig;
+import com.demo.lib_base.dialog.CircleLoadingView;
 import com.demo.lib_base.utils.SoftInputUtils;
-import com.demo.lib_base.utils.StatusBarUtil;
-import com.xuan.view.interfaces.OnLoadMoreListener;
-import com.xuan.view.interfaces.OnRefreshListener;
-import com.xuan.view.recyclerview.LRecyclerView;
-import com.xuan.view.recyclerview.LRecyclerViewAdapter;
 
 /**
  * @author: wanglei
  * @Description: com.demo.lib_base.activity
  * @since: 2021/3/5 16:28
  */
-public abstract class BaseActivity extends DataBindingActivity implements IBaseActivityInter{
+public abstract class BaseActivity extends DataBindingActivity {
 
     private ViewModelProvider mActivityProvider;
     private ViewModelProvider mApplicationProvider;
 
-    protected CircleLoadingView loadingView;
+    public CircleLoadingView loadingView;
 
     //是否第一次进入布局
     private boolean isFirstEnterPage = true;
@@ -49,7 +41,7 @@ public abstract class BaseActivity extends DataBindingActivity implements IBaseA
     /**
      * 加载的页数
      */
-    protected int pageNo=1;
+    public int pageNo = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -140,14 +132,14 @@ public abstract class BaseActivity extends DataBindingActivity implements IBaseA
         Log.i(SystemDefaultConfig.LIFE_TAG, "onRestart   " + this);
     }
 
-    protected <T extends ViewModel> T getActivityScopeViewModel(@NonNull Class<T> modelClass) {
+    public <T extends ViewModel> T getActivityScopeViewModel(@NonNull Class<T> modelClass) {
         if (mActivityProvider == null) {
             mActivityProvider = new ViewModelProvider(this);
         }
         return mActivityProvider.get(modelClass);
     }
 
-    protected <T extends ViewModel> T getApplicationScopeViewModel(@NonNull Class<T> modelClass) {
+    public <T extends ViewModel> T getApplicationScopeViewModel(@NonNull Class<T> modelClass) {
         if (mApplicationProvider == null) {
             mApplicationProvider = new ViewModelProvider((MyApplication) this.getApplicationContext());
         }
@@ -216,28 +208,38 @@ public abstract class BaseActivity extends DataBindingActivity implements IBaseA
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
-            if (isShouldHideInput(ev)) {
-                SoftInputUtils.hideSoftInputFromWindow(this);
+            View v = getCurrentFocus();
+
+            if (isShouldHideInput(v,ev)) {
+                SoftInputUtils.hideSoftInputFromWindow(v);
+            } else {
+
             }
         }
         return super.dispatchTouchEvent(ev);
+
+        /*
+        // 必不可少，否则所有的组件都不会有TouchEvent了
+        if (getWindow().superDispatchTouchEvent(ev)) {
+            return true;
+        }
+        return onTouchEvent(ev);
+        */
     }
 
-    public boolean isShouldHideInput(MotionEvent event) {
-        View v = getCurrentFocus();
-
+    public boolean isShouldHideInput(View v,MotionEvent event) {
         if (v != null && (v instanceof EditText)) {
             int[] leftTop = {0, 0};
             //获取输入框当前的location位置
             v.getLocationInWindow(leftTop);
             int left = leftTop[0];
             int top = leftTop[1];
-            int bottom = top + v.getHeight() + StatusBarUtil.getStatusBarHeight(this);
+            int bottom = top + v.getHeight();
             int right = left + v.getWidth();
 
             if (event.getX() > left && event.getX() < right
                     && event.getY() > top && event.getY() < bottom) {
-                // 点击的是输入框区域，保留点击EditText的事件
+                // 点击的是输入框区域
                 return false;
             } else {
                 return true;
@@ -255,66 +257,21 @@ public abstract class BaseActivity extends DataBindingActivity implements IBaseA
     /**
      * 刷新操作
      */
-    protected void onRefresh(){
-        pageNo=1;
+    public void onRefresh() {
+        pageNo = 1;
     }
 
     /**
      * 加载更多操作
      */
-    protected void onLoadMore(){
+    public void onLoadMore() {
         pageNo++;
     }
 
     /**
      * 查询数据
      */
-    protected void queryData(){}
-
-    protected LRecyclerViewAdapter addRecyclerViewAdapter(LRecyclerView recyclerView, BaseRecyclerViewAdapter adapter){
-        LRecyclerViewAdapter lAdapter=new LRecyclerViewAdapter(adapter);
-        recyclerView.setAdapter(lAdapter);
-        return lAdapter;
+    public void queryData() {
     }
 
-    protected void addOnRefreshListener(LRecyclerView recyclerView, BaseRecyclerViewAdapter adapter){
-        recyclerView.setPullRefreshEnabled(true);
-        recyclerView.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                adapter.isSelectPosition=0;
-
-                BaseActivity.this.onRefresh();
-
-                recyclerView.refreshCompleteDelayed(2000);
-            }
-        });
-    }
-
-    protected void addOnLoadMoreListener(LRecyclerView recyclerView){
-        recyclerView.setPullRefreshEnabled(true);
-        recyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-                BaseActivity.this.onLoadMore();
-
-                recyclerView.refreshCompleteDelayed(2000);
-            }
-        });
-    }
-
-    protected void addOnScanListener(EditText et, OnScanCallback callback){
-        et.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
-                    if(callback!=null){
-                        callback.onScan(et.getText().toString().trim());
-                    }
-                    return true;
-                }
-                return false;
-            }
-        });
-    }
 }

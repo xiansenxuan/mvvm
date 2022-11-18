@@ -1,11 +1,16 @@
 package com.demo.lib_base.adapter;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.demo.lib_base.R;
+import com.demo.lib_base.app.MyApplication;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,6 +112,17 @@ public abstract class BaseRecyclerViewAdapter<VH extends RecyclerView.ViewHolder
         }
     }
 
+    /**
+     * 单独插入一条 刷新
+     * @param t
+     * @param <T>
+     */
+    public <T> void addItemNotify(T t) {
+        if (t!=null && this.mItemList.add(t)) {
+            notifyItemChanged(getItemCount()+1);
+        }
+    }
+
     public <T> ArrayList getItemList(){
         return this.mItemList;
     }
@@ -199,6 +215,12 @@ public abstract class BaseRecyclerViewAdapter<VH extends RecyclerView.ViewHolder
                     return false;
                 }
             });
+        }
+
+        if (position == isSelectPosition) {
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(MyApplication.getInstance().getApplicationContext(), R.color.base_gray));
+        } else {
+            holder.itemView.setBackgroundColor(Color.WHITE);
         }
 
         onBindItemViewHolder(holder,position);

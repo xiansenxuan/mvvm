@@ -4,4 +4,7 @@
     <declare-styleable name="SuperEditText">
     </declare-styleable>
 
+    <declare-styleable name="SuperTextView">
+    </declare-styleable>
+
 </resources>

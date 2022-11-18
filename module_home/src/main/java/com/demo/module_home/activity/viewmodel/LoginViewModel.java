@@ -44,7 +44,7 @@ public class LoginViewModel extends BaseViewModel {
             System.out.println(data.userName+" "+data.sex+" "+data.age);
         }*/
 
-        SystemClock.sleep(500);
+        SystemClock.sleep(200);
 
         isLogin.setValue(true);
 

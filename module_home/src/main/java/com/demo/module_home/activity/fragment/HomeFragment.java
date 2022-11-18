@@ -13,6 +13,7 @@ import com.demo.lib_base.adapter.BaseRecyclerViewAdapter;
 import com.demo.lib_base.adapter.BaseViewHolder;
 import com.demo.lib_base.app.MyApplication;
 import com.demo.lib_base.utils.ToastUtils;
+import com.demo.lib_base.utils.ViewUtils;
 import com.demo.module_home.R;
 import com.demo.module_home.activity.data.UserData;
 import com.demo.module_home.activity.viewmodel.HomeViewModel;
@@ -54,7 +55,7 @@ public class HomeFragment extends BaseFragment{
         mBinding.recyclerView.setLayoutManager(manager);
 
         mAdapter = new MyRecyclerViewAdapter();
-        addRecyclerViewAdapter(mBinding.recyclerView, mAdapter);
+        ViewUtils.addRecyclerViewAdapter(mBinding.recyclerView, mAdapter);
 
         DividerDecoration divider = new DividerDecoration.Builder(getContext())
                 .setHeight(R.dimen.default_divider_height)
@@ -62,8 +63,8 @@ public class HomeFragment extends BaseFragment{
                 .build();
         mBinding.recyclerView.addItemDecoration(divider);
 
-        addOnRefreshListener(mBinding.recyclerView, mAdapter);
-        addOnLoadMoreListener(mBinding.recyclerView);
+        ViewUtils.addOnRefreshListener(this,mBinding.recyclerView, mAdapter);
+        ViewUtils.addOnLoadMoreListener(this,mBinding.recyclerView);
     }
 
     @Override

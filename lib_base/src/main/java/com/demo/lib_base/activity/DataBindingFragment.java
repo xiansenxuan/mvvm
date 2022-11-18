@@ -89,4 +89,5 @@ public abstract class DataBindingFragment extends RxFragment implements IBaseFra
         super.onDestroyView();
     }
 
+    public abstract void onBackPressed();
 }

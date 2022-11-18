@@ -6,6 +6,8 @@ import android.content.Context;
 import android.os.Looper;
 import android.widget.Toast;
 
+import com.demo.lib_base.app.MyApplication;
+
 import es.dmoral.toasty.Toasty;
 
 /**
@@ -56,6 +58,22 @@ import es.dmoral.toasty.Toasty;
  */
 
 public class ToastUtils {
+
+    @SuppressLint("CheckResult")
+    public static void showDefaultToast(String msg){
+        Toasty.Config.getInstance().setTextSize(13).apply();
+
+        if (Looper.myLooper() != Looper.getMainLooper()) {
+            MyApplication.getInstance().topActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toasty.normal(MyApplication.getInstance().topActivity,msg, Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            Toasty.normal(MyApplication.getInstance().topActivity,msg,Toast.LENGTH_SHORT).show();
+        }
+    }
 
     @SuppressLint("CheckResult")
     public static void showDefaultToast(Activity context, String msg){

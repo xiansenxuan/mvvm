@@ -39,6 +39,13 @@ public class RouteUtils {
         ARouter.getInstance().build(RouteUrl.activity_msg).navigation();
     }
 
+    /**
+     * tms
+     */
+    public static void startTmsFlatActivity() {
+        ARouter.getInstance().build(RouteUrl.TmsFlatActivity).navigation();
+    }
+
     public static void startLogin() {
 
     }

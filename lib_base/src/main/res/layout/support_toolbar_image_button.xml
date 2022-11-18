@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.AppCompatImageButton xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/iv_left"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:background="@color/transparency"
+    android:clickable="true"
+    android:foreground="@drawable/ripple_gray"
+    android:gravity="center"
+    android:paddingLeft="8dp"
+    android:paddingTop="8dp"
+    android:paddingRight="8dp"
+    android:paddingBottom="8dp" />
+

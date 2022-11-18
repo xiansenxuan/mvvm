@@ -103,6 +103,12 @@ dependencies {
     if (!isNeedMsgModule.toBoolean()) {
         api project(':module_msg')
     }
+    if (!isNeedInStorageModule.toBoolean()) {
+        api project(':instorage')
+    }
+    if (!isNeedOutboundModule.toBoolean()) {
+        api project(':outbound')
+    }
 
     implementation 'androidx.multidex:multidex: 2.0.1'
 }

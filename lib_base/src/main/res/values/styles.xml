@@ -23,7 +23,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/base_white</item><!--应用的主要色调，actionBar默认使用该颜色，Toolbar导航栏的底色-->
-        <item name="colorPrimaryDark">@color/base_white</item><!--应用的主要暗色调，statusBarColor默认使用该颜色 -->
+        <item name="colorPrimaryDark">@color/base_blue</item><!--应用的主要暗色调，statusBarColor默认使用该颜色 -->
         <item name="colorAccent">@color/base_blue</item><!--控制各个控件被选中时的颜色-->
 
         <item name="android:textColor">@color/default_text_color</item>
@@ -40,7 +40,7 @@
         <!--<item name="android:windowDrawsSystemBarBackgrounds" tools:ignore="NewApi">false</item>-->
        <item name="android:windowDrawsSystemBarBackgrounds" tools:ignore="NewApi">true</item>
 
-        <item name="android:statusBarColor" tools:ignore="NewApi">@color/base_white</item>
+        <item name="android:statusBarColor" tools:ignore="NewApi">@color/base_blue</item>
 
         <item name="android:windowLightStatusBar" tools:ignore="NewApi">false</item>
 
@@ -59,6 +59,8 @@
         <item name="android:checkboxStyle">@style/Widget.CheckBox</item>
         <!--引入editText的自定义样式-->
         <item name="android:editTextStyle">@style/Widget.EditText</item>
+        <!--引入textViewStyle的自定义样式-->
+        <item name="android:autoCompleteTextViewStyle">@style/Widget.AppCompat.TextView</item>
 
         <item name = "android:colorControlHighlight" tools:ignore="NewApi">@color/colorAccent</item>
     </style>
@@ -74,7 +76,7 @@
 
     <style name="Widget.CheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">
         <item name="colorControlNormal">@color/colorControlNormal</item>
-        <item name="colorControlActivated">@color/colorControlActivated</item>
+        <item name="colorControlActivated">@color/base_blue</item>
         <item name="android:button">@drawable/selector_check_tick</item>
     </style>
 
@@ -174,6 +176,13 @@
         <item name="android:windowDisablePreview">true</item>
     </style>
 
+    <!-- styles.xml -->
+    <style name="NormalSplash" parent="AppTheme">
+        <item name="android:windowBackground">@mipmap/splash</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
 <!--
     &lt;!&ndash;方式2&ndash;&gt;
     <style name="AppSplash" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -183,13 +192,6 @@
         <item name="windowNoTitle">true</item>
     </style>
 -->
-<!--
-        &lt;!&ndash; styles.xml &ndash;&gt;
-        <style name="NormalSplash" parent="AppTheme">
-            <item name="android:windowBackground">@drawable/welcome_layler_drawable</item>
-            <item name="android:windowNoTitle">true</item>
-            <item name="android:windowContentOverlay">@null</item>
-        </style>-->
 
     <!--红点 带数字-->
     <style name="widget_number_dot_red">
@@ -208,5 +210,49 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:src">@drawable/dot_red</item>
+    </style>
+
+
+    <!--                                                                                                     !!!                                                                                                                  -->
+    <style name="TextViewStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textColor">@color/base_black</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:maxLines">1</item>
+        <item name="background">@null</item>
+    </style>
+
+    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/bg_edittext_select</item>
+        <item name="android:textColor">@color/base_black</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+
+    <style name="multi_textView" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/font_color_button_disable_select</item>
+        <item name="android:background">@drawable/bg_button_select</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:paddingTop">7dp</item>
+        <item name="android:paddingBottom">7dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:enabled">true</item>
+        <item name="android:textSize">@dimen/default_text_size</item>
+        <item name="android:ellipsize">end</item>
+        <item name="minHeight">50dp</item>
     </style>
 </resources>

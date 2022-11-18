@@ -20,6 +20,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.content.ContextCompat;
 
 import com.demo.lib_base.R;
+import com.demo.lib_base.utils.SoftInputUtils;
 
 /**
  * @author: xuan
@@ -32,8 +33,6 @@ public class SuperEditText extends AppCompatEditText implements TextWatcher{
 
     private Drawable mDrawable;
     private int mIconWidth;
-    private boolean mDisableKeyboard;
-    private boolean mDisableBackgroundFrame;
 
     public SuperEditText(Context context) {
         this(context, null);
@@ -56,18 +55,17 @@ public class SuperEditText extends AppCompatEditText implements TextWatcher{
         setIcon();
         // 设置输入框里面内容发生改变的监听
         addTextChangedListener(this);
-        if (!mDisableBackgroundFrame) {
-            setBackground(ContextCompat.getDrawable(getContext(), R.drawable.bg_edittext_select));
-        }
+
+        setBackground(ContextCompat.getDrawable(getContext(), R.drawable.bg_edittext_select));
         setGravity(Gravity.CENTER_VERTICAL);
     }
 
 
     public void setIcon() {
-        mDrawable = ContextCompat.getDrawable(getContext(), R.drawable.ic_clear_white_48dp);
+        mDrawable = ContextCompat.getDrawable(getContext(), R.mipmap.clear_gray);
 
         // 设置图标的位置以及大小,getIntrinsicWidth()获取显示出来的大小而不是原图片的带小
-        mIconWidth = (int)getResources().getDimension(R.dimen.dp_22);
+        mIconWidth = (int)getResources().getDimension(R.dimen.drawable_width);
         mDrawable.setBounds(0, 0, mIconWidth, mIconWidth);
     }
 
@@ -97,23 +95,16 @@ public class SuperEditText extends AppCompatEditText implements TextWatcher{
         return super.onKeyDown(keyCode, event);
     }
 
-    /**
-     * 因为我们不能直接给EditText设置点击事件，所以我们用记住我们按下的位置来模拟点击事件 当我们按下的位置 在 EditText的宽度 - 图标到控件右边的间距 - 图标的宽度 和 EditText的宽度 -
-     * 图标到控件右边的间距之间我们就算点击了图标，竖直方向就没有考虑
-     */
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        if (mDisableKeyboard) {
-            return super.onTouchEvent(event);
-        }
 
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            // 点击右边键盘图标
-            if (event.getX() > (getWidth() - mIconWidth)) {
-                if (getCompoundDrawables()[2] != null) {
-                    return true;
-                }
-            } else {
+            Drawable drawable = getCompoundDrawables()[2];
+            if (drawable != null && event.getX() <= (getWidth() - getPaddingRight())
+                    && event.getX() >= (getWidth() - getPaddingRight() - drawable.getBounds().width())) {
+                setText("");
+                return true;
+            }else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     setShowSoftInputOnFocus(false);
                 }
@@ -124,17 +115,17 @@ public class SuperEditText extends AppCompatEditText implements TextWatcher{
 
     /**
      * 当ClearEditText焦点发生变化的时候，设置清除图标的显示与隐藏
+     * 设置键盘弹出/隐藏
      */
     @Override
     protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
         super.onFocusChanged(focused, direction, previouslyFocusedRect);
-        if (mDisableKeyboard) {
-            return;
-        }
+
+        setClearIconVisible(focused && length()>0);
+
         if (focused) {
-            setClearIconVisible(true);
+            SoftInputUtils.showSoftInputFromWindow(this);
         } else {
-            setClearIconVisible(false);
         }
     }
 
@@ -180,6 +171,7 @@ public class SuperEditText extends AppCompatEditText implements TextWatcher{
         }
     }
 
+
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -187,11 +179,25 @@ public class SuperEditText extends AppCompatEditText implements TextWatcher{
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+        setClearIconVisible(hasFocus() && s.length() > 0);
     }
 
     @Override
     public void afterTextChanged(Editable s) {
 
     }
+
+    /*@Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_UP:
+                Drawable drawable = getCompoundDrawables()[2];
+                if (drawable != null && event.getX() <= (getWidth() - getPaddingRight())
+                        && event.getX() >= (getWidth() - getPaddingRight() - drawable.getBounds().width())) {
+                    setText("");
+                }
+                break;
+        }
+        return super.onTouchEvent(event);
+    }*/
 }

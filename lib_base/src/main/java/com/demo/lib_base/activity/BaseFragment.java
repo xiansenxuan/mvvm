@@ -2,11 +2,9 @@ package com.demo.lib_base.activity;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,14 +13,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.demo.lib_base.adapter.BaseRecyclerViewAdapter;
 import com.demo.lib_base.app.MyApplication;
-import com.demo.lib_base.inter.OnScanCallback;
 import com.demo.lib_base.constant.SystemDefaultConfig;
-import com.xuan.view.interfaces.OnLoadMoreListener;
-import com.xuan.view.interfaces.OnRefreshListener;
-import com.xuan.view.recyclerview.LRecyclerView;
-import com.xuan.view.recyclerview.LRecyclerViewAdapter;
 
 /**
  * @author: wanglei
@@ -45,7 +37,7 @@ public abstract class BaseFragment extends DataBindingFragment{
     /**
      * 加载的页数
      */
-    protected int pageNo=1;
+    public int pageNo=1;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -134,28 +126,28 @@ public abstract class BaseFragment extends DataBindingFragment{
     }
 
 
-    protected <T extends ViewModel> T getFragmentScopeViewModel(@NonNull Class<T> modelClass) {
+    public <T extends ViewModel> T getFragmentScopeViewModel(@NonNull Class<T> modelClass) {
         if (mFragmentProvider == null) {
             mFragmentProvider = new ViewModelProvider(this);
         }
         return mFragmentProvider.get(modelClass);
     }
 
-    protected <T extends ViewModel> T getActivityScopeViewModel(@NonNull Class<T> modelClass) {
+    public <T extends ViewModel> T getActivityScopeViewModel(@NonNull Class<T> modelClass) {
         if (mActivityProvider == null) {
             mActivityProvider = new ViewModelProvider(mActivity);
         }
         return mActivityProvider.get(modelClass);
     }
 
-    protected <T extends ViewModel> T getApplicationScopeViewModel(@NonNull Class<T> modelClass) {
+    public <T extends ViewModel> T getApplicationScopeViewModel(@NonNull Class<T> modelClass) {
         if (mApplicationProvider == null) {
             mApplicationProvider = new ViewModelProvider((MyApplication) mActivity.getApplicationContext());
         }
         return mApplicationProvider.get(modelClass);
     }
 
-    protected NavController nav() {
+    public NavController nav() {
         return NavHostFragment.findNavController(this);
     }
 
@@ -231,66 +223,24 @@ public abstract class BaseFragment extends DataBindingFragment{
     /**
      * 刷新操作
      */
-    protected void onRefresh(){
+    public void onRefresh(){
         pageNo=1;
     }
 
     /**
      * 加载更多操作
      */
-    protected void onLoadMore(){
+    public void onLoadMore(){
         pageNo++;
     }
 
     /**
      * 查询数据
      */
-    protected void queryData(){}
+    public void queryData(){}
 
-    protected LRecyclerViewAdapter addRecyclerViewAdapter(LRecyclerView recyclerView, BaseRecyclerViewAdapter adapter){
-        LRecyclerViewAdapter lAdapter=new LRecyclerViewAdapter(adapter);
-        recyclerView.setAdapter(lAdapter);
-        return lAdapter;
-    }
-
-    protected void addOnRefreshListener(LRecyclerView recyclerView, BaseRecyclerViewAdapter adapter){
-        recyclerView.setPullRefreshEnabled(true);
-        recyclerView.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                adapter.isSelectPosition=0;
-
-                BaseFragment.this.onRefresh();
-
-                recyclerView.refreshCompleteDelayed(2000);
-            }
-        });
-    }
-
-    protected void addOnLoadMoreListener(LRecyclerView recyclerView){
-        recyclerView.setPullRefreshEnabled(true);
-        recyclerView.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-                BaseFragment.this.onLoadMore();
-
-                recyclerView.refreshCompleteDelayed(2000);
-            }
-        });
-    }
-
-    protected void addOnScanListener(EditText et, OnScanCallback callback){
-        et.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
-                    if(callback!=null){
-                        callback.onScan(et.getText().toString().trim());
-                    }
-                    return true;
-                }
-                return false;
-            }
-        });
+    @Override
+    public void onBackPressed() {
+        getActivity().onBackPressed();
     }
 }

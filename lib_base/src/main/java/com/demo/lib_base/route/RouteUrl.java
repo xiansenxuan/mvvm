@@ -6,4 +6,6 @@ public class RouteUrl {
     public static final String HomeActivity = "/HomeActivity/HomeActivity";
 
     public static final String activity_msg = "/module_msg/msg";
+
+    public static final String TmsFlatActivity = "/TmsFlatActivity/TmsFlatActivity";
 }
