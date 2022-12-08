@@ -109,6 +109,9 @@ dependencies {
     if (!isNeedOutboundModule.toBoolean()) {
         api project(':outbound')
     }
+    if (!isNeedBasicModule.toBoolean()) {
+        api project(':basic')
+    }
 
     implementation 'androidx.multidex:multidex: 2.0.1'
 }

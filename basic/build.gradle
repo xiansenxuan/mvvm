@@ -1,4 +1,4 @@
-if (isNeedOutboundModule.toBoolean()) {
+if (isNeedBasicModule.toBoolean()) {
     //作为独立App应用运行
     apply plugin: 'com.android.application'
 } else {
@@ -24,14 +24,14 @@ android {
             }
         }
 
-        if (isNeedOutboundModule.toBoolean()) {
+        if (isNeedBasicModule.toBoolean()) {
             applicationId rootProject.ext.android['applicationId']
         }
     }
 
     sourceSets {
         main {
-            if (!isNeedOutboundModule.toBoolean()) {
+            if (!isNeedBasicModule.toBoolean()) {
                 manifest.srcFile 'src/main/AndroidManifest.xml'
             } else {
                 manifest.srcFile 'src/main/AndroidManifest.xml'

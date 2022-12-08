@@ -23,7 +23,7 @@ android {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
         }
-        isNeedInStorageModule
+
         if (isNeedInStorageModule.toBoolean()) {
             applicationId rootProject.ext.android['applicationId']
         }

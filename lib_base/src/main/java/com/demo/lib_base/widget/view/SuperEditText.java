@@ -159,16 +159,6 @@ public class SuperEditText extends AppCompatEditText implements TextWatcher{
     @Override
     protected void onSelectionChanged(int selStart, int selEnd) {
         super.onSelectionChanged(selStart, selEnd);
-        // 防止不能多选
-        if (selStart == selEnd) {
-            // 判空，防止出现空指针
-            if (getText() == null) {
-                setSelection(0);
-            } else {
-                // 保证光标始终在最后面
-                setSelection(getText().length());
-            }
-        }
     }
 
 
@@ -186,6 +176,8 @@ public class SuperEditText extends AppCompatEditText implements TextWatcher{
     public void afterTextChanged(Editable s) {
 
     }
+
+
 
     /*@Override
     public boolean onTouchEvent(MotionEvent event) {

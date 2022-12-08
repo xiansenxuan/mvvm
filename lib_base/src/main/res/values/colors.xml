@@ -78,7 +78,7 @@
     <color name="default_text_color_gray">#BDBFC5</color> <!--语音转文字提示语 -->
     <color name="default_text_color_light">#666666</color> <!-- 默认浅色字体颜色 -->
     <color name="default_text_color_light_super">#AAAAAA</color> <!-- 默认超浅色字体颜色 -->
-    <color name="default_text_color_secondary_light">#656565</color> <!-- 默认微浅色字体颜色 -->
+    <color name="default_text_color_secondary_light">#6565showSoftInputFromWindow65</color> <!-- 默认微浅色字体颜色 -->
     <color name="text_color_yellow_light">#B28A40</color> <!-- 默认浅黄色字体颜色 -->
 
     <color name="line_color">#f5f5f5</color> <!--默认分割线颜色-->

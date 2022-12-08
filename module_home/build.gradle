@@ -23,7 +23,7 @@ android {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
         }
-        isNeedHomeModule
+
         if (isNeedHomeModule.toBoolean()) {
             applicationId rootProject.ext.android['applicationId']
         }
