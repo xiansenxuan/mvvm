@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".activity.TmsFlatActivity"
+        <activity android:name=".activity.LoginActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
             >
             <!--            <intent-filter>
@@ -19,6 +19,14 @@
 
                             <category android:name="android.intent.category.LAUNCHER" />
                         </intent-filter>-->
+        </activity>
+
+        <activity android:name=".activity.StorageActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+        </activity>
+
+        <activity android:name=".activity.MenuActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden">
         </activity>
 
     </application>

@@ -2,6 +2,8 @@ package com.demo.lib_base.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.demo.lib_base.R;
-import com.demo.lib_base.entity.entity.PopListEntity;
 import com.demo.lib_base.constant.SystemDefaultConfig;
+import com.demo.lib_base.entity.entity.PopListEntity;
 import com.jakewharton.rxbinding3.view.RxView;
 
 import java.util.ArrayList;
@@ -51,6 +53,13 @@ public class BaseListPopupWindow extends ListPopupWindow {
         super(context, attrs, defStyleAttr, defStyleRes);
 
         mInflater= LayoutInflater.from(context);
+
+        init();
+    }
+
+    private void init() {
+        setModal(true);
+        setBackgroundDrawable(new ColorDrawable(Color.BLACK));
     }
 
     public MyAdapter addAdapter(OnItemClickListener listener) {

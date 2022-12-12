@@ -240,6 +240,7 @@ public abstract class BaseActivity extends DataBindingActivity {
             if (event.getX() > left && event.getX() < right
                     && event.getY() > top && event.getY() < bottom) {
                 // 点击的是输入框区域
+                SoftInputUtils.showSoftInputFromWindow(v);
                 return false;
             } else {
                 return true;

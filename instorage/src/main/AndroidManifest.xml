@@ -12,7 +12,6 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".activity.TmsFlatActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"
             >
             <!--            <intent-filter>
                             <action android:name="android.intent.action.MAIN" />

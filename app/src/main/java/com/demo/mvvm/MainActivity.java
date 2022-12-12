@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
                 .subscribe(new Consumer<Long>() {
                     @Override
                     public void accept(Long aLong) throws Exception {
-                        RouteUtils.startTmsFlatActivity();
+                        RouteUtils.startLogin();
                         finish();
                     }
                 });

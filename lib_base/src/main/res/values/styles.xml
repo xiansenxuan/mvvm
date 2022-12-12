@@ -3,7 +3,6 @@
     <!-- Base application theme. -->
     <style name="Widget.OverflowMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
         <item name="android:layout_marginRight">4dp</item>
-        <item name="android:popupBackground">@color/base_white</item>
         <item name="overlapAnchor">true</item>
         <item name="android:dropDownHorizontalOffset">-4dip</item>
 
@@ -214,24 +213,31 @@
 
     <!--                                                                                                     !!!                                                                                                                  -->
     <style name="TextViewStyle" parent="Widget.AppCompat.TextView">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
         <item name="android:ellipsize">end</item>
         <item name="android:textSize">@dimen/text_size_16</item>
         <item name="android:textColor">@color/base_black</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:maxLines">1</item>
         <item name="background">@null</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="SelectTextViewStyle" parent="TextViewStyle">
+        <item name="android:drawableRight">@mipmap/arrow_right</item>
+        <item name="android:background">@drawable/bg_edittext_select</item>
+        <item name="android:padding">5dp</item>
     </style>
 
     <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/bg_edittext_select</item>
         <item name="android:textColor">@color/base_black</item>
         <item name="android:textSize">@dimen/text_size_16</item>
         <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">5dp</item>
     </style>
 
     <style name="multi_textView" parent="Widget.AppCompat.TextView">

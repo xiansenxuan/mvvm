@@ -1,4 +1,4 @@
-package com.galaxis.instorage.activity.viewmodel;
+package com.galaxis.instorage.viewmodel;
 
 import android.app.Application;
 
@@ -14,8 +14,9 @@ import io.reactivex.functions.Consumer;
 
 /**
  * @author: wanglei
- * @Description: com.demo.module_home.activity.viewmodel
+ * @Description: com.demo.module_home.activity.viewmodel 入库公用model
  * @since: 2021/3/2 14:09
+ *
  */
 public class InStorageViewModel extends BaseViewModel {
     public MutableLiveData<String> list=new MutableLiveData<>();

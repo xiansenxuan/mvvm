@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="3dp"
+        android:layout_marginBottom="10dp"
+        >
+
+            <ImageView
+                android:id="@+id/iv_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/in_storage"
+                />
+
+            <com.demo.lib_base.widget.view.SuperTextView
+                android:id="@+id/tv_menu"
+                style="@style/TextViewStyle"
+                android:layout_width="wrap_content"
+                android:text="入库管理"
+                />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

@@ -87,7 +87,7 @@ public class ViewUtils {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
                     if(callback!=null){
-                        callback.onScan(et.getText().toString().trim());
+                        callback.onScan(et.getText().toString().trim().replaceAll("\\s*|\r|\n|\t",""));
                     }
                     return true;
                 }

@@ -47,6 +47,14 @@ public class RouteUtils {
     }
 
     public static void startLogin() {
+        ARouter.getInstance().build(RouteUrl.LoginActivity).navigation();
+    }
 
+    public static void startStorage() {
+        ARouter.getInstance().build(RouteUrl.StorageActivity).navigation();
+    }
+
+    public static void startMenu() {
+        ARouter.getInstance().build(RouteUrl.MenuActivity).navigation();
     }
 }

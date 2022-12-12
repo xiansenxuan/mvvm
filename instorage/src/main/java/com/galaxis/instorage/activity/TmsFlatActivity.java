@@ -27,11 +27,13 @@ import com.demo.lib_base.utils.ToastUtils;
 import com.demo.lib_base.utils.ViewUtils;
 import com.demo.lib_base.widget.view.SupportToolBar;
 import com.galaxis.instorage.R;
-import com.galaxis.instorage.activity.viewmodel.InStorageViewModel;
 import com.galaxis.instorage.databinding.ActivityTmsFlatBinding;
+import com.galaxis.instorage.viewmodel.InStorageViewModel;
 import com.xuan.view.ItemDecoration.DividerDecoration;
 
 import java.util.ArrayList;
+
+import io.reactivex.functions.Consumer;
 
 @Route(path = RouteUrl.TmsFlatActivity)
 public class TmsFlatActivity extends BaseActivity {
@@ -48,18 +50,11 @@ public class TmsFlatActivity extends BaseActivity {
         }
     });
 
-    ActivityResultLauncher<Intent> resultOther = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-        @Override
-        public void onActivityResult(ActivityResult result) {
-            if (result.getResultCode() == RESULT_OK) {
-            }
-        }
-    });
-
     @Override
     protected void initViewModel() {
         mState=getActivityScopeViewModel(InStorageViewModel.class);
         mBinding= (ActivityTmsFlatBinding) getDataBinding();
+
     }
 
     @Override
@@ -231,7 +226,6 @@ public class TmsFlatActivity extends BaseActivity {
         super.onDestroy();
 
         result.unregister();
-        resultOther.unregister();
     }
 
 

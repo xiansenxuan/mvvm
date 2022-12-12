@@ -1,11 +1,17 @@
 package com.demo.lib_base.route;
 
-public class RouteUrl {
-    public static final String activity_main = "/module_main/main";
+public interface RouteUrl {
+    String activity_main = "/module_main/main";
 
-    public static final String HomeActivity = "/HomeActivity/HomeActivity";
+    String HomeActivity = "/HomeActivity/HomeActivity";
 
-    public static final String activity_msg = "/module_msg/msg";
+    String activity_msg = "/module_msg/msg";
 
-    public static final String TmsFlatActivity = "/TmsFlatActivity/TmsFlatActivity";
+    String TmsFlatActivity = "/TmsFlatActivity/TmsFlatActivity";
+
+    String LoginActivity="/LoginActivity/LoginActivity";
+
+    String StorageActivity = "/StorageActivity/StorageActivity";
+
+    String MenuActivity = "/MenuActivity/MenuActivity";
 }
